@@ -1,5 +1,5 @@
 import {IBlog} from "../ts/interfaces";
-import {BlogModel, } from "../models/blog-model";
+import {BlogModel} from "../models/blog-model";
 import {Model, RefType, SortOrder} from "mongoose";
 
 export class BlogsRepository {
@@ -27,7 +27,7 @@ export class BlogsRepository {
         return await this.blogModel.create({name, description, websiteUrl});
     }
 
-    public async getOneBlog(id: RefType): Promise<IBlog| null> {
+    public async getOneBlog(id: RefType): Promise<IBlog | null> {
         return this.blogModel.findById({_id: id});
     }
 

@@ -1,7 +1,7 @@
 import {RefType, SortOrder} from "mongoose";
 import {IBlog, IPost} from "../ts/interfaces";
-import {PostsRepository} from "../repositories/posts-repositories";
-import {BlogsRepository} from "../repositories/blogs-repositories";
+import {PostsRepository} from "../repositories/posts-repository";
+import {BlogsRepository} from "../repositories/blogs-repository";
 
 export class PostService {
     private postRepository: PostsRepository;

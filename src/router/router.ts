@@ -3,8 +3,9 @@ import {isErrorMiddleware} from "../middleware/catch-error";
 import {BlogController} from "../controllers/blog-controller";
 import {PostController} from "../controllers/post-controller";
 import {TestController} from "../controllers/testing-controller";
-import {basicAuthorization} from "../authrizations/authorization";
-import {blogValidation, postValidation, postValidationWithoutBodyId} from "../validator/validator";
+import {basicAuthorization} from "../authorizations/authorization";
+import {blogValidation, postValidation, postValidationWithoutBodyId, userValidation} from "../validator/validator";
+import {UserController} from "../controllers/user-controller";
 
 export const router = Router();
 
@@ -28,3 +29,10 @@ router.get('/posts/:id', PostController.getOnePost);
 router.put('/posts/:id', basicAuthorization, postValidation, isErrorMiddleware, PostController.updatePost);
 router.delete('/posts/:id', basicAuthorization, PostController.deletePost);
 
+/**Users**/
+router.get('/users', basicAuthorization, UserController.getAllUsers);
+router.post('/users', basicAuthorization, userValidation, isErrorMiddleware,UserController.createUser);
+router.delete('/users', basicAuthorization, UserController.deleteUser);
+
+/**Auth**/
+router.post('/auth/login', userValidation, isErrorMiddleware, UserController.login);

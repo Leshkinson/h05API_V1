@@ -1,6 +1,6 @@
 import {IBlog} from "../ts/interfaces";
 import {RefType, SortOrder} from "mongoose";
-import {BlogsRepository} from "../repositories/blogs-repositories";
+import {BlogsRepository} from "../repositories/blogs-repository";
 
 export class BlogService {
     private blogRepository: BlogsRepository;
@@ -45,7 +45,7 @@ export class BlogService {
         throw new Error();
     }
 
-    public async delete(id: string): Promise<IBlog> {
+    public async delete(id: RefType): Promise<IBlog> {
         const deleteBlog = await this.blogRepository.deleteBlog(id);
         if (deleteBlog) return deleteBlog;
         throw new Error();

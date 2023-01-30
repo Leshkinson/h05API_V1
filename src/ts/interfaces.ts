@@ -8,10 +8,17 @@ export interface IBlog {
 }
 
 export interface IPost {
-    _id: mongoose.Schema.Types.ObjectId ;
+    _id: mongoose.Schema.Types.ObjectId;
     title: string;
     shortDescription: string;
     content: string;
     blogId: string;
     blogName: string;
+}
+
+export interface IUser {
+    _id: mongoose.Schema.Types.ObjectId;
+    login: string;
+    email: string;
+    password: string;
 }

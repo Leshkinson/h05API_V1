@@ -1,21 +1,27 @@
-import {IBlog, IPost} from "../ts/interfaces";
+import {IBlog, IPost, IUser} from "../ts/interfaces";
 import {BlogModel} from "../models/blog-model";
 import {PostModel} from "../models/post-model";
 import mongoose, {Model, RefType, SortOrder} from "mongoose";
-import {BlogsRepository} from "../repositories/blogs-repositories";
-import {PostsRepository} from "../repositories/posts-repositories";
+import {BlogsRepository} from "../repositories/blogs-repository";
+import {PostsRepository} from "../repositories/posts-repository";
+import {UsersRepository} from "../repositories/users-repository";
+import {UserModel} from "../models/user-model";
 
 export class QueryService {
     private blogRepository: BlogsRepository;
     private postRepository: PostsRepository;
+    private userRepository: UsersRepository;
     private postModel: Model<IPost>;
     private blogModel: Model<IBlog>;
+    private userModel: Model<IUser>
 
     constructor() {
         this.blogRepository = new BlogsRepository();
         this.postRepository = new PostsRepository();
+        this.userRepository = new UsersRepository();
         this.postModel = PostModel;
         this.blogModel = BlogModel;
+        this.userModel = UserModel;
     }
 
     public async findBlog(blogId: RefType): Promise<IBlog | undefined> {
@@ -31,6 +37,16 @@ export class QueryService {
 
         return await this.blogRepository.getBlogsCount(searchNameTerm);
     }
+
+    public async getTotalCountForUsers(searchLoginTerm: string | undefined | object, searchEmailTerm: string | undefined | object): Promise<number> {
+        if (searchLoginTerm)
+            searchLoginTerm = {name: {$regex: new RegExp(`.*${searchLoginTerm}.*`, 'i')}};
+        if (searchEmailTerm)
+            searchEmailTerm = {name: {$regex: new RegExp(`.*${searchEmailTerm}.*`, 'i')}};
+
+        return await this.userRepository.getUsersCount(searchLoginTerm, searchEmailTerm);
+    }
+
 
     public async getTotalCountForPosts(): Promise<number> {
         return this.postModel.find().count();

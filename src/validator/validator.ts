@@ -29,6 +29,24 @@ const isBodyIdPattern: CustomValidator = async (value: string) => {
     return true;
 };
 
+const isLoginPattern: CustomValidator = (value: string) => {
+    const patternLogin = new RegExp(/^[a-zA-Z0-9_-]*$/);
+    if (!patternLogin.test(value)) {
+        throw new Error()
+    }
+
+    return true;
+}
+
+const isEmailPattern: CustomValidator = (value: string) => {
+    const patternEmail = new RegExp(/^[\w-]+@([\w-]+\.)+[\w-]{2,4}$/);
+    if (!patternEmail.test(value)) {
+        throw new Error()
+    }
+
+    return true;
+}
+
 export const nameValidation = body('name')
     .trim()
     .isLength({max: 15})
@@ -90,6 +108,30 @@ export const blogIdValidation = body('blogId')
     .custom(isBodyIdPattern)
     .withMessage("BlogId has incorrect value. (BlogId not found)");
 
+export const loginValidation = body('login')
+    .trim()
+    .isString()
+    .withMessage("Login has incorrect value. (BlogId doesn't string)")
+    .isLength({ min: 3, max: 10})
+    .withMessage("Login has incorrect value. (Content has less than 3 or more than 10 characters)")
+    .custom(isLoginPattern)
+    .withMessage("Login has incorrect value. (Login doesn't match pattern)");
+
+export const passwordValidation = body('password')
+    .trim()
+    .isString()
+    .withMessage("Password has incorrect value. (BlogId doesn't string)")
+    .isLength({ min: 6, max: 20})
+    .withMessage("Password has incorrect value. (Content has less than 6 or more than 20 characters)")
+
+export const emailValidation = body('email')
+    .trim()
+    .isString()
+    .withMessage("Login has incorrect value. (BlogId doesn't string)")
+    .custom(isEmailPattern)
+    .withMessage("Login has incorrect value. (Login doesn't match pattern)");
+
 export const blogValidation = [nameValidation, descriptionValidation, websiteUrlValidation];
 export const postValidationWithoutBodyId = [titleValidation, shortDescriptionValidation, contentDescriptionValidation];
 export const postValidation = [titleValidation, shortDescriptionValidation, contentDescriptionValidation, blogIdValidation];
+export const userValidation = [loginValidation, passwordValidation, emailValidation]

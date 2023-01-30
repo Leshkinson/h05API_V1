@@ -13,9 +13,10 @@ BlogSchema.set('toJSON', {
         dto.id = dto._id;
         delete dto._id;
         delete dto.__v;
-        delete dto.updatedAt
+        delete dto.updatedAt;
     }
 });
-BlogSchema.set('id', true)
 
-export const BlogModel = mongoose.model<IBlog>('Blog', BlogSchema)
+BlogSchema.set('id', true);
+
+export const BlogModel = mongoose.model<IBlog>('Blog', BlogSchema);
