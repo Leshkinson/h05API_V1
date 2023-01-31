@@ -19,8 +19,8 @@ export class UserService {
         searchLoginTerm: { login: { $regex: RegExp } } | {} = {},
         searchEmailTerm: { email: { $regex: RegExp } } | {} = {}
     ): Promise<IUser[]> {
-        if (searchLoginTerm) searchLoginTerm = {name: {$regex: new RegExp(`.*${searchLoginTerm}.*`, 'i')}};
-        if (searchEmailTerm) searchEmailTerm = {name: {$regex: new RegExp(`.*${searchEmailTerm}.*`, 'i')}};
+        if (searchLoginTerm) searchLoginTerm = {login: {$regex: new RegExp(`.*${searchLoginTerm}.*`, 'i')}};
+        if (searchEmailTerm) searchEmailTerm = {email: {$regex: new RegExp(`.*${searchEmailTerm}.*`, 'i')}};
 
         const skip: number = Number((pageNumber - 1) * pageSize);
 
