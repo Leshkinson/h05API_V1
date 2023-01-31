@@ -68,8 +68,8 @@ export class UserController {
         try {
             const userService = new UserService();
 
-            const {login, password, email} = req.body;
-            const check = await userService.verifyUser(login, password, email);
+            const {loginOrEmail, password} = req.body;
+            const check = await userService.verifyUser(loginOrEmail, password);
 
             if (check) res.sendStatus(204);
         } catch (error) {

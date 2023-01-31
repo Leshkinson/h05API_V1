@@ -35,4 +35,4 @@ router.post('/users', basicAuthorization, userValidation, isErrorMiddleware,User
 router.delete('/users/:id', basicAuthorization, UserController.deleteUser);
 
 /**Auth**/
-router.post('/auth/login', userValidation, isErrorMiddleware, UserController.login);
+router.post('/auth/login', UserController.login);
