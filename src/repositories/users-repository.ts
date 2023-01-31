@@ -18,7 +18,7 @@ export class UsersRepository {
         searchEmailTerm: { email: { $regex: RegExp } } | {} = {},
     ): Promise<IUser[]> {
 
-        return this.userModel.find({$or:[searchLoginTerm, searchEmailTerm]}).sort({[sortBy]: sortDirection}).skip(skip).limit(limit);
+        return this.userModel.find({$or: [searchLoginTerm, searchEmailTerm]}).sort({[sortBy]: sortDirection}).skip(skip).limit(limit);
     }
 
     public async findUser(loginOrEmail: string): Promise<IUser | null> {
@@ -26,7 +26,7 @@ export class UsersRepository {
     }
 
     public async getUsersCount(searchLoginTerm: { login: { $regex: RegExp } } | {} = {}, searchEmailTerm: { email: { $regex: RegExp } } | {} = {},): Promise<number> {
-        return this.userModel.countDocuments(searchLoginTerm, searchEmailTerm);
+        return this.userModel.countDocuments({$or: [searchLoginTerm, searchEmailTerm]});
     }
 
     public async createUser(login: string, password: string, email: string): Promise<IUser> {

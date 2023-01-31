@@ -6,7 +6,6 @@ import {UserService} from "../services/user-service";
 import {QueryService} from "../services/query-service";
 
 export class UserController {
-    //todo refactor filter
     static async getAllUsers(req: Request, res: Response) {
         try {
             const userService = new UserService()
@@ -33,7 +32,6 @@ export class UserController {
     }
 
     static async createUser(req: Request, res: Response) {
-        //todo added auth credentials Instead of basic auth
         try {
             const userService = new UserService();
 
