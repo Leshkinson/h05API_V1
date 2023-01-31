@@ -40,9 +40,9 @@ export class QueryService {
 
     public async getTotalCountForUsers(searchLoginTerm: string | undefined | object, searchEmailTerm: string | undefined | object): Promise<number> {
         if (searchLoginTerm)
-            searchLoginTerm = {name: {$regex: new RegExp(`.*${searchLoginTerm}.*`, 'i')}};
+            searchLoginTerm = {login: {$regex: new RegExp(`.*${searchLoginTerm}.*`, 'i')}};
         if (searchEmailTerm)
-            searchEmailTerm = {name: {$regex: new RegExp(`.*${searchEmailTerm}.*`, 'i')}};
+            searchEmailTerm = {email: {$regex: new RegExp(`.*${searchEmailTerm}.*`, 'i')}};
 
         return await this.userRepository.getUsersCount(searchLoginTerm, searchEmailTerm);
     }
