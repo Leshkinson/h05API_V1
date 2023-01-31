@@ -49,7 +49,6 @@ export class UserController {
     }
 
     static async deleteUser(req: Request, res: Response) {
-        //todo added auth credentials Instead of basic auth
         try {
             const userService = new UserService();
 
@@ -60,7 +59,7 @@ export class UserController {
         } catch (error) {
             if (error instanceof Error) {
                 res.sendStatus(404);
-                throw new Error(error.message);
+                console.log(error.message);
             }
         }
     }

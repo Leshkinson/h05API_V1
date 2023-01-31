@@ -32,7 +32,7 @@ router.delete('/posts/:id', basicAuthorization, PostController.deletePost);
 /**Users**/
 router.get('/users', basicAuthorization, UserController.getAllUsers);
 router.post('/users', basicAuthorization, userValidation, isErrorMiddleware,UserController.createUser);
-router.delete('/users', basicAuthorization, UserController.deleteUser);
+router.delete('/users/:id', basicAuthorization, UserController.deleteUser);
 
 /**Auth**/
 router.post('/auth/login', userValidation, isErrorMiddleware, UserController.login);
